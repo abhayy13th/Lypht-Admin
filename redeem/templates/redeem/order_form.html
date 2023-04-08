@@ -1,0 +1,30 @@
+{% extends 'redeem/main.html' %}
+{% load static %}
+{% block title %}{{ _('Orders') }}{% endblock %}
+{% block content %}
+
+    <div class="row ">
+        <div class="col-md-12">
+
+            <div class="card card-body mx-auto bg-black text-center">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+
+
+                    <br>
+                    <br>
+                    <br>
+
+
+                    <input type="submit" class="btn btn-outline-success" name="Submit">
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <a class="btn btn-outline-secondary" href="{% url 'home' %}">Cancel</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

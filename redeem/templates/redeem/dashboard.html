@@ -1,0 +1,98 @@
+{% extends 'redeem/main.html' %}
+
+
+{% block content %}
+
+    <div class="container-fluid ">
+        <div class="row ">
+            <div class="col-md-12 d-flex justify-content-end">
+                <a href="http://localhost:8000/admin/" class="btn btn-outline-danger btn-sm">
+                    <i class="fas fa-user-shield"></i> Super Admin
+                </a>
+            </div>
+        </div>
+
+        {% include 'redeem/status.html' %}
+        <div class="row">
+            <div class="col-md-5">
+                <h5>USERS</h5>
+                <hr>
+
+                <div class="card card-body">
+                    <a class="btn btn-primary btn-sm btn-block" href=#>Create Customer</a>
+                    <br/>
+                    <table class="table  table-warning table-responsive-sm">
+                        <tr>
+
+                            <th>Users</th>
+                            <th>Phone</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        {% for user in users %}
+                            <tr>
+                                <td>
+                                    {{ user.name }}
+                                </td>
+                                <td>
+                                    {{ user.phone }}
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-success btn-sm" href="{% url 'orders' user.id %}">View</a>
+                                <td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="col-md-7">
+                <h5>LAST 5 ORDERS</h5>
+                <hr>
+                <div class="card card-body">
+                    <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_Order' %}">Create Order</a>
+                    <br>
+                    <table class="table table-warning table-sm">
+                        <tr>
+                            <th>
+                                Product
+                            </th>
+                            <th>Date Ordered</th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Update
+                            <th>
+                                Remove
+                            </th>
+                        </tr>
+                        {% for order in orders %}
+                            <tr>
+                                <td>
+                                    {{ order.product }}
+                                </td>
+                                <td>
+                                    {{ order.created_at }}
+                                </td>
+                                <td>
+                                    {{ order.status }}
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="{% url 'update_Order' order.id %}">Update</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm" href="{% url 'delete_Order' order.id %}">Remove</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

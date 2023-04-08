@@ -1,0 +1,54 @@
+{% load static %}
+<style>
+    .userHello {
+        font-size: 18px;
+        color: white;
+        margin-right: 10px;
+        text-decoration: none;
+
+
+        font-family: "Monotype Corsiva", "Comic Sans MS", cursive;
+
+    }
+</style>
+<nav class="navbar navbar-expand-lg p-1 pe-2 ps-2" style="background-color:teal; " data-bs-theme="dark">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#">Lypht</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'products' %}">Redeem Shop</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Orders</a>
+            </li>
+
+        </ul>
+
+
+        <a class="userHello"> Hello, {{ request.user }}</a>
+
+        <img src="{% static 'images/superbike.png' %}" width="40" height="40" alt="">
+        &nbsp;&nbsp;
+        <span>
+             <a href="{% url 'logout' %}" class="btn btn-dark btn-sm">
+                 Logout
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
+        </span>
+
+
+    </div>
+
+
+</nav>

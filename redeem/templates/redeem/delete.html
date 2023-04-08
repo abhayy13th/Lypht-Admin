@@ -1,0 +1,28 @@
+{% extends 'redeem/main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-md-12">
+
+                <div class="card card-body mx-auto bg-black text-center">
+
+                    <h6> Are You sure you want to delete "{{ item }}"</h6>
+                    <br>
+
+                    <form method="POST" action="{% url 'delete_Order' item.id %}">
+                        {% csrf_token %}
+
+
+                        <input class="btn btn-outline-danger" type="submit" value="Delete">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-outline-secondary" href="{% url 'home' %}">Cancel</a>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
