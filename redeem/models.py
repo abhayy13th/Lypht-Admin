@@ -19,11 +19,21 @@ class Tag(models.Model):
         return self.name
 
 
+class Sos(models.Model):
+
+    name = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True)
+    rider_name = models.CharField(max_length=200, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     name = models.CharField(max_length=200)
     discount = models.FloatField()
     stock = models.IntegerField()
-    # image_url = models.CharField(max_length=2083)
     description = models.TextField()
     price = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -72,15 +82,6 @@ class UserTag(models.Model):
         return self.usertype
 
 
-class BikeDetails(models.Model):
-    bike_number = models.CharField(max_length=200, null=True)
-    bike_model = models.CharField(max_length=200, null=True)
-    bike_color = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return self.bike_number
-
-
 class Rider(models.Model):
     rider_id = models.CharField(max_length=200, null=True)
     name = models.CharField(max_length=200, null=True)
@@ -90,10 +91,19 @@ class Rider(models.Model):
     newRideStatus = models.CharField(max_length=200, null=True)
     points = models.IntegerField(null=True)
     type = models.ForeignKey(UserTag, on_delete=models.CASCADE)
-    bike_details = models.OneToOneField(BikeDetails, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+
+class BikeDetails(models.Model):
+    bike_number = models.CharField(max_length=200, null=True)
+    bike_model = models.CharField(max_length=200, null=True)
+    bike_color = models.CharField(max_length=200, null=True)
+    rider_id = models.ForeignKey(Rider, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.bike_number
 
 
 class Passenger(models.Model):
@@ -110,7 +120,6 @@ class Passenger(models.Model):
 
 
 class RideRequests(models.Model):
-
     ride_request_id = models.CharField(max_length=200, null=True)
     created_at = models.CharField(max_length=200, null=True)
     rider_id = models.ForeignKey(Rider, on_delete=models.CASCADE)
