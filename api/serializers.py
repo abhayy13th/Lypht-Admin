@@ -5,7 +5,8 @@ from redeem.models import *
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = 'name', 'price', 'discount', 'description', 'stock'
+
+        exclude = ('tags',)
 
 
 class OrderSerializer(serializers.ModelSerializer):
