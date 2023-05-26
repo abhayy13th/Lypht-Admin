@@ -22,6 +22,21 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'error': 'User does not exist'}, status=404)
 
 
+class PassengerViewSet(viewsets.ModelViewSet):
+    queryset = Passenger.objects.all()
+    serializer_class = PassengerSerializer
+
+    @action(detail=True, methods=['get'])
+    def ride_requests(self, request, pk=None):
+        try:
+            passenger = self.get_object()
+            ride_requests = passenger.ride_requests.all()
+            serializer = RideRequestSerializer(ride_requests, many=True)
+            return Response(serializer.data)
+        except Passenger.DoesNotExist:
+            return Response({'error': 'Passenger does not exist'}, status=404)
+
+
 class RiderViewSet(viewsets.ModelViewSet):
     queryset = Rider.objects.all()
     serializer_class = RiderSerializer
@@ -35,6 +50,22 @@ class RiderViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         except Rider.DoesNotExist:
             return Response({'error': 'Rider does not exist'}, status=404)
+
+
+class RideRequestsViewSet(viewsets.ModelViewSet):
+    queryset = RideRequests.objects.all()
+    serializer_class = RideRequestSerializer
+
+    @action(detail=True, methods=['get'])
+    def ride_details(self, request, pk=None):
+        try:
+            ride_request = self.get_object()
+            # Perform custom logic or retrieve additional data related to the ride request
+            # Serialize the data if needed
+            serializer = self.get_serializer(ride_request)  # Custom serializer for ride details
+            return Response(serializer.data)
+        except RideRequests.DoesNotExist:
+            return Response({'error': 'Ride request does not exist'}, status=404)
 
 
 class UserTagViewSet(viewsets.ModelViewSet):
@@ -62,73 +93,69 @@ class UserTagViewSet(viewsets.ModelViewSet):
             return Response({'error': 'UserTag does not exist'}, status=404)
 
 
-class PassengerViewSet(viewsets.ModelViewSet):
-    queryset = Passenger.objects.all()
-    serializer_class = PassengerSerializer
-
-    @action(detail=True, methods=['get'])
-    def ride_requests(self, request, pk=None):
-        try:
-            passenger = self.get_object()
-            ride_requests = passenger.ride_requests.all()
-            serializer = RideRequestSerializer(ride_requests, many=True)
-            return Response(serializer.data)
-        except Passenger.DoesNotExist:
-            return Response({'error': 'Passenger does not exist'}, status=404)
-
-
 class RideRequestViewSet(viewsets.ModelViewSet):
     queryset = RideRequests.objects.all()
     serializer_class = RideRequestSerializer
 
+
+class OrderRiderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
     @action(detail=True, methods=['get'])
     def rider(self, request, pk=None):
         try:
-            ride_request = self.get_object()
-            rider = ride_request.rider
+            order = self.get_object()
+            rider = order.rider
             serializer = RiderSerializer(rider, many=False)
             return Response(serializer.data)
-        except RideRequests.DoesNotExist:
-            return Response({'error': 'Ride request does not exist'}, status=404)
-
-    @action(detail=True, methods=['get'])
-    def passenger(self, request, pk=None):
-        try:
-            ride_request = self.get_object()
-            passenger = ride_request.passenger
-            serializer = PassengerSerializer(passenger, many=False)
-            return Response(serializer.data)
-        except RideRequests.DoesNotExist:
-            return Response({'error': 'Ride request does not exist'}, status=404)
-
-    @action(detail=True, methods=['get'])
-    def ride(self, request, pk=None):
-        try:
-            ride_request = self.get_object()
-            ride = ride_request.ride
-            serializer = RideRequestSerializer(ride, many=False)
-            return Response(serializer.data)
-        except RideRequests.DoesNotExist:
-            return Response({'error': 'Ride request does not exist'}, status=404)
+        except Order.DoesNotExist:
+            return Response({'error': 'Order does not exist'}, status=404)
 
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+    @action(detail=True, methods=['get'])
+    def orders(self, request, pk=None):
+        try:
+            product = self.get_object()
+            orders = product.order_set.all()
+            serializer = OrderSerializer(orders, many=True)
+            return Response(serializer.data)
+        except Product.DoesNotExist:
+            return Response({'error': 'Product does not exist'}, status=404)
+
+
+class OrderPassengerViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    @action(detail=True, methods=['get'])
+    def passenger(self, request, pk=None):
+        try:
+            order = self.get_object()
+            passenger = order.passenger
+            serializer = PassengerSerializer(passenger, many=False)
+            return Response(serializer.data)
+        except Order.DoesNotExist:
+            return Response({'error': 'Order does not exist'}, status=404)
+
 
 class BikeDetailsViewSet(viewsets.ModelViewSet):
     queryset = BikeDetails.objects.all()
     serializer_class = BikeDetailsSerializer
 
+
 class SosViewSet(viewsets.ModelViewSet):
     queryset = Sos.objects.all()
     serializer_class = SosSerializer
 
+
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-
 
 # @api_view(['GET'])
 # def getData(request):

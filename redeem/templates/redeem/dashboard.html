@@ -5,8 +5,12 @@
 
     <div class="container-fluid ">
         <div class="row ">
-            <div class="col-md-12 d-flex justify-content-end">
-                <a href="http://localhost:8000/admin/" class="btn btn-outline-danger btn-sm">
+            <div class="col-md-6 d-flex">
+                <h3 style="color: teal; font-family: 'Poor Richard',serif">Lypht: Ride Sharing &nbsp;- &nbsp; Admin
+                    Panel</h3>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <a href="http://localhost:8000/admin/" class="btn btn-outline-danger">
                     <i class="fas fa-user-shield"></i> Super Admin
                 </a>
             </div>
@@ -14,31 +18,32 @@
 
         {% include 'redeem/status.html' %}
         <div class="row">
-            <div class="col-md-5">
-                <h5>USERS</h5>
+            <div class="col-md">
+                <h5>Riders</h5>
                 <hr>
 
-                <div class="card card-body">
-                    <a class="btn btn-primary btn-sm btn-block" href=#>Create Customer</a>
+                <div class="card card-body" style="background-color: black">
+                    <a class="btn btn-outline-success btn-sm" href="{% url 'users' %}">View All</a>
                     <br/>
-                    <table class="table  table-warning table-responsive-sm">
+                    <table class="table  table-success table-responsive-sm">
                         <tr>
 
-                            <th>Users</th>
-                            <th>Phone</th>
-                            <th></th>
-                            <th></th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone &nbsp;&nbsp;</th>
+                            <th scope="col">&nbsp;&nbsp;</th>
                         </tr>
-                        {% for user in users %}
+
+                        {% for rider in ridersView %}
                             <tr>
                                 <td>
-                                    {{ user.name }}
+                                    {{ rider.name }}
                                 </td>
                                 <td>
-                                    {{ user.phone }}
+                                    {{ rider.phone }}
                                 </td>
                                 <td>
-                                    <a class="btn btn-outline-success btn-sm" href="{% url 'orders' user.id %}">View</a>
+                                    {{ rider.email }}
                                 <td>
                             </tr>
                         {% endfor %}
@@ -48,51 +53,93 @@
             </div>
 
 
-            <div class="col-md-7">
-                <h5>LAST 5 ORDERS</h5>
+            <div class="col-md">
+                <h5>Passengers</h5>
                 <hr>
-                <div class="card card-body">
-                    <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_Order' %}">Create Order</a>
-                    <br>
-                    <table class="table table-warning table-sm">
+
+                <div class="card card-body" style="background-color: black">
+                    <a class="btn btn-outline-success btn-sm" href="{% url 'users' %}">View All</a>
+                    <br/>
+                    <table class="table  table-success table-responsive-sm">
                         <tr>
-                            <th>
-                                Product
-                            </th>
-                            <th>Date Ordered</th>
-                            <th>
-                                Status
-                            </th>
-                            <th>
-                                Update
-                            <th>
-                                Remove
-                            </th>
+
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone &nbsp;&nbsp;</th>
+                            <th scope="col">&nbsp;&nbsp;</th>
                         </tr>
-                        {% for order in orders %}
+
+                        {% for passenger in passengersView %}
                             <tr>
                                 <td>
-                                    {{ order.product }}
+                                    {{ passenger.name }}
                                 </td>
                                 <td>
-                                    {{ order.created_at }}
+                                    {{ passenger.phone }}
                                 </td>
                                 <td>
-                                    {{ order.status }}
-                                </td>
+                                    {{ passenger.email }}
                                 <td>
-                                    <a class="btn btn-primary btn-sm"
-                                       href="{% url 'update_Order' order.id %}">Update</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger btn-sm" href="{% url 'delete_Order' order.id %}">Remove</a>
-                                </td>
                             </tr>
                         {% endfor %}
+
                     </table>
                 </div>
             </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <br>
+            <div class="col-md">
+                <h5>LAST 5 RIDE REQUESTS</h5>
+                <hr>
+                <div class="card card-body" style="background-color: black">
+                    <a class="btn btn-outline-success btn-sm" href="{% url 'view_ride_requests' %}">View All</a>
+                    <br>
+                    <table class="table table-success table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Origin</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Passenger Name</th>
+                            <th scope="col">Passenger Number</th>
+                            <th scope="col">Rider Name</th>
+                            <th scope="col">Rider Number</th>
+                            <th scope="col">Bike Details</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Created at</th>
+
+                        </tr>
+                        {% for ride in ride_requests %}
+                            <tr>
+                                <th scope="row">{{ ride.id }}</th>
+                                <td>{{ ride.originAddress }}</td>
+                                <td>{{ ride.destinationAddress }}</td>
+                                <td>{{ ride.passenger_name }}</td>
+                                <td>{{ ride.passenger_phone }}</td>
+                                <td>{{ ride.rider_name }}</td>
+                                <td>{{ ride.rider_phone }}</td>
+                                <td>{{ ride.rider_bike_details }}</td>
+                                <td>{{ ride.status }}</td>
+                                <td>{{ ride.created_at }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
 
 {% endblock %}

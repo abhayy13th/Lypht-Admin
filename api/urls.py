@@ -12,6 +12,8 @@ router.register(r'ride-requests', views.RideRequestViewSet)
 router.register(r'user-tags', views.UserTagViewSet)
 router.register(r'bike-details', views.BikeDetailsViewSet)
 router.register(r'sos', views.SosViewSet)
+router.register(r'order-rider', views.OrderRiderViewSet)
+router.register(r'order-passenger', views.OrderPassengerViewSet)
 
 urlpatterns = [
 

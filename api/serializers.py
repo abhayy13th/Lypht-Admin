@@ -8,6 +8,20 @@ class ProductSerializer(serializers.ModelSerializer):
 
         exclude = ('tags',)
 
+        # fields = '__all__'
+
+
+class OrderRiderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderRider
+        fields = '__all__'
+
+
+class OrderPassengerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderPassenger
+        fields = '__all__'
+
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:

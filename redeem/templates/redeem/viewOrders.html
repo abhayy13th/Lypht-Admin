@@ -1,0 +1,54 @@
+{% extends "redeem/main.html" %}
+
+{% block content %}
+
+
+    <h1>Rider Orders </h1>
+    <table class="table table-dark table-striped table-responsive">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">User</th>
+            <th scope="col">Created at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orderRider %}
+        <tr>
+          <th scope="row">{{ order.id }}</th>
+          <td>{{ order.product }}</td>
+          <td>{{ order.rider }}</td>
+          <td>{{ order.created_at }}</td>
+        </tr>
+        {% endfor %}
+
+         </tbody>
+        </table>
+
+    <br>
+    <br>
+    <br>
+     <h1>Passenger Orders </h1>
+    <table class="table table-dark table-striped table-responsive">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">User</th>
+            <th scope="col">Created at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orderPassenger %}
+        <tr>
+          <th scope="row">{{ order.id }}</th>
+          <td>{{ order.product }}</td>
+          <td>{{ order.passenger }}</td>
+          <td>{{ order.created_at }}</td>
+        </tr>
+        {% endfor %}
+
+         </tbody>
+        </table>
+{% endblock %}

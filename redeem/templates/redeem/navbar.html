@@ -27,10 +27,16 @@
                 <a class="nav-link" href="{% url 'products' %}">Redeem Shop</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Users</a>
+                <a class="nav-link" href="{% url 'users' %}">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Orders</a>
+                <a class="nav-link" href="{% url 'view_orders' %}">Orders</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'view_ride_requests' %}">Rides</a>
+            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'sos' %}">SOS</a>
             </li>
 
         </ul>

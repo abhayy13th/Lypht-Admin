@@ -1,0 +1,45 @@
+{% extends "redeem/main.html" %}
+
+{% block content %}
+
+
+    <h1> Ride Requests </h1>
+    <table class="table table-dark table-striped table-responsive">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Origin</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Passenger Name</th>
+            <th scope="col">Passenger Number</th>
+            <th scope="col">Rider Name</th>
+            <th scope="col">Rider Number</th>
+            <th scope="col">Bike Details</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created At</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for ride in rideRequest %}
+            <tr>
+                <th scope="row">{{ ride.id }}</th>
+                <td>{{ ride.originAddress }}</td>
+                <td>{{ ride.destinationAddress }}</td>
+                <td>{{ ride.passenger_name }}</td>
+                <td>{{ ride.passenger_phone }}</td>
+                <td>{{ ride.rider_name }}</td>
+                <td>{{ ride.rider_phone }}</td>
+                <td>{{ ride.rider_bike_details }}</td>
+                <td>{{ ride.status }}</td>
+
+                <td>{{ ride.created_at }}</td>
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -29,6 +29,9 @@ class Sos(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
@@ -42,6 +45,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['id']
+
 
 class User(models.Model):
     name = models.CharField(max_length=200, null=True)
@@ -54,10 +60,28 @@ class User(models.Model):
         return self.name
 
 
+class OrderRider(models.Model):
+    rider = models.ForeignKey('Rider', null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey('Product', null=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.product.name
+
+
+class OrderPassenger(models.Model):
+    passenger = models.ForeignKey('Passenger', null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey('Product', null=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.product.name
+
+
 class Order(models.Model):
     STATUS = (
         ('Pending', 'Pending'),
-        ('Out for delivery', 'Out for delivery'),
+
         ('Delivered', 'Delivered'),
     )
 
@@ -122,8 +146,8 @@ class Passenger(models.Model):
 class RideRequests(models.Model):
     ride_request_id = models.CharField(max_length=200, null=True)
     created_at = models.CharField(max_length=200, null=True)
-    rider_id = models.ForeignKey(Rider, on_delete=models.CASCADE)
-    passenger_id = models.ForeignKey(Passenger, on_delete=models.CASCADE)
+    rider_id = models.CharField(max_length=200, null=True)
+    passenger_id = models.CharField(max_length=200, null=True)
     status = models.CharField(max_length=200, null=True)
     points = models.IntegerField(null=True)
     originAddress = models.CharField(max_length=200, null=True)
@@ -138,9 +162,7 @@ class RideRequests(models.Model):
     passenger_phone = models.CharField(max_length=200, null=True)
     rider_name = models.CharField(max_length=200, null=True)
     rider_phone = models.CharField(max_length=200, null=True)
-    rider_bike_number = models.CharField(max_length=200, null=True)
-    rider_bike_model = models.CharField(max_length=200, null=True)
-    rider_bike_color = models.CharField(max_length=200, null=True)
+    rider_bike_details = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.ride_request_id

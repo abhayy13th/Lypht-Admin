@@ -1,0 +1,34 @@
+{% extends "redeem/main.html" %}
+
+{% block content %}
+
+
+    <h1> Sos </h1>
+    <table class="table table-dark table-striped table-responsive">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Passenger Name</th>
+            <th scope="col">Passenger Number</th>
+            <th scope="col">Rider Name</th>
+            <th scope="col">Created at</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for s in sos %}
+            <tr>
+                <th scope="row">{{ s.id }}</th>
+                <td>{{ s.name }}</td>
+                <td>{{ s.phone }}</td>
+                <td>{{ s.rider_name }}</td>
+                <td>{{ s.created_at }}</td>
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}
